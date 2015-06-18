@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. env.sh
+. /root/scripts/env.sh
 
 echo >> $BADFILE_LOG && /bin/date >> $BADFILE_LOG
 echo "Start scan on ${WWW_DIR}" >> $BADFILE_LOG

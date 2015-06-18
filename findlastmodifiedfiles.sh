@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. env.sh
+. /root/scripts/env.sh
 
 /usr/bin/find ${WWW_DIR} -type f -mtime -1 -print | /bin/egrep -v ${EXCLUDED_PATHS} > ${LOG_DIR}/mailbody_$DATE.txt
 

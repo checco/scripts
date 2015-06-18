@@ -1,5 +1,5 @@
 #!/bin/bash
 
-. env.sh
+. /root/scripts/env.sh
 
 /usr/bin/mysqlcheck -u ${USER} -p${PASSWD} --repair --all-databases

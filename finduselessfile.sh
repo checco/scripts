@@ -1,7 +1,6 @@
 #!/bin/bash
 
-
-. env.sh
+. /root/scripts/env.sh
 
 echo > $USELESSFILE_LOG && /bin/date >> $USELESSFILE_LOG
 echo "Start scan on $WWW_DIR" >> $USELESSFILE_LOG

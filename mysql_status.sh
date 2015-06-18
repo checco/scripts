@@ -1,6 +1,6 @@
 #!/bin/bash
 
-.env.sh 
+. /root/scripts/env.sh
 
 if [ ${MYSQL_PROC_NUM} -gt 1 ]; then
   /bin/echo "MySQL is running"

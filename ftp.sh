@@ -2,7 +2,7 @@
 
 [ "$1" == "" ] && echo "Please submit a parameter like: open or close" && exit 1
 
-. env.sh
+. /root/scripts/env.sh
 
 if [ "$1" == "open" ]; then
   cp -f ${openfw} ${configfw}

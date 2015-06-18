@@ -1,3 +1,5 @@
 #!/bin/bash
 
-/usr/bin/mysqlcheck -u da_admin -p2MGmgZj4 --repair --all-databases
+. env.sh
+
+/usr/bin/mysqlcheck -u ${USER} -p${PASSWD} --repair --all-databases

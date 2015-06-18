@@ -1,19 +1,19 @@
 #!/bin/bash
 
-file_log="/tmp/badfile.log"
-log="/root/scripts/log/findbadfile.log"
-echo >> $log && /bin/date >> $log
-echo "Start scan on /home/admin/domains/" >> $log
-/usr/bin/find /home/admin/domains/ -type f | /bin/grep "uploads" | /bin/egrep "upload.php|plugin.php|blog.php" > ${file_log}
-num=`cat ${file_log} | wc -l`
+. env.sh
 
-[ ${num} -eq "0" ] && echo >> $log && /bin/date >> $log && echo "There are no bad files to delete" >> $log && exit 
+echo >> $BADFILE_LOG && /bin/date >> $BADFILE_LOG
+echo "Start scan on ${WWW_DIR}" >> $BADFILE_LOG
+/usr/bin/find ${WWW_DIR} -type f | /bin/grep "uploads" | /bin/egrep "upload.php|plugin.php|blog.php" > ${BADFILE_TMPLOG}
+num=`cat ${BADFILE_TMPLOG} | wc -l`
 
-cd /home/admin/domains/
-echo >> $log && /bin/date >> $log && echo >> $log
-for file in `cat ${file_log}`; do
-  echo -en "Remove file ${file}.. " >> ${log}
+[ ${num} -eq "0" ] && echo >> $BADFILE_LOG && /bin/date >> $BADFILE_LOG && echo "There are no bad files to delete" >> $BADFILE_LOG && exit 
+
+cd ${WWW_DIR}
+echo >> $BADFILE_LOG && /bin/date >> $BADFILE_LOG && echo >> $BADFILE_LOG
+for file in `cat ${BADFILE_TMPLOG}`; do
+  echo -en "Remove file ${file}.. " >> ${BADFILE_LOG}
   #rm -f $file 
-  echo -en "done\n" >> ${log}
+  echo -en "done\n" >> ${BADFILE_LOG}
 done
 

@@ -1,19 +1,20 @@
 #!/bin/bash
 
-file_log="/tmp/uselessfiles.log"
-log="/root/scripts/log/finduselessfile.log"
-echo > $log && /bin/date >> $log
-echo "Start scan on /home/admin/domains/" >> $log
-/usr/bin/find /home/admin/domains/ -type f | /bin/egrep "LEGGIMI.txt|licenza.html|wp-config-sample.php|readme.html|license.txt" > ${file_log}
-num=`cat ${file_log} | wc -l`
 
-[ ${num} -eq "0" ] && echo >> $log && /bin/date >> $log && echo "There are no files to delete" >> $log && exit 
+. env.sh
 
-cd /home/admin/domains/
-echo >> $log && /bin/date >> $log && echo >> $log
-for file in `cat ${file_log}`; do
-  echo -en "Remove file ${file}.. " >> ${log}
+echo > $USELESSFILE_LOG && /bin/date >> $USELESSFILE_LOG
+echo "Start scan on $WWW_DIR" >> $USELESSFILE_LOG
+/usr/bin/find $WWW_DIR -type f | /bin/egrep "LEGGIMI.txt|licenza.html|wp-config-sample.php|readme.html|license.txt" > ${USELESSFILE_TMPLOG}
+num=`cat ${USELESSFILE_TMPLOG} | wc -l`
+
+[ ${num} -eq "0" ] && echo >> $USELESSFILE_LOG && /bin/date >> $USELESSFILE_LOG && echo "There are no files to delete" >> $USELESSFILE_LOG && exit 
+
+cd $WWW_DIR
+echo >> $USELESSFILE_LOG && /bin/date >> $USELESSFILE_LOG && echo >> $USELESSFILE_LOG
+for file in `cat ${USELESSFILE_TMPLOG}`; do
+  echo -en "Remove file ${file}.. " >> ${USELESSFILE_LOG}
   rm -f ${file}
-  echo -en "done\n" >> ${log}
+  echo -en "done\n" >> ${USELESSFILE_LOG}
 done
 
